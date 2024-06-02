@@ -8,5 +8,13 @@
   border: 1px solid #bdbdbd;
   border-radius: variables.$PX5;
   right: 0;
-  bottom: 83px;
+  bottom: variables.$PX83;
+
+  &.close {
+    visibility: hidden;
+  }
+
+  &.open {
+    visibility: visible;
+  }
 }

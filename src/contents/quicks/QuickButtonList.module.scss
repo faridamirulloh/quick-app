@@ -3,7 +3,13 @@
 @use '/src/styles/font.module.scss';
 @use '/src/styles/variables.module.scss';
 
-$children: (1, 2, 3, 4, 5);
+$children: (5, 4, 3, 2, 1, 0);
+$quick-button-item-size: variables.$PX60;
+$quick-button-icon-size: variables.$PX26;
+$quick-button-icon-size-selected: variables.$PX30;
+$tasks-selected-color: color.$indicator-1;
+$inbox-selected-color: color.$indicator-2;
+$shadow-button-color: color.$primary-2;
 
 .container {
   position: absolute;
@@ -32,13 +38,15 @@ $children: (1, 2, 3, 4, 5);
     }
 
     .button {
+      transition: 1s;
       background-color: #f2f2f2;
-      border-radius: variables.$PX30;
-      height: variables.$PX60;
-      width: variables.$PX60;
+      border-radius: $quick-button-item-size / 2;
+      height: $quick-button-item-size;
+      width: $quick-button-item-size;
 
       .icon {
-        font-size: variables.$PX26;
+        transition: 1s;
+        font-size: $quick-button-icon-size;
       }
     }
   }
@@ -52,8 +60,35 @@ $children: (1, 2, 3, 4, 5);
     animation-name: fade-in;
 
     @each $child in $children {
-      > :nth-last-child(#{$child}) {
-        right: $child * variables.$quick-button-space;
+      .index#{$child} {
+        right: ($child + 1) * variables.$quick-button-space;
+      }
+    }
+
+    .quickButton {
+      &.selected {
+        right: variables.$PX4;
+        bottom: -(variables.$PX4);
+
+        .button {
+          transition: 1s;
+          border-radius: variables.$quick-button-size / 2;
+          height: variables.$quick-button-size;
+          width: variables.$quick-button-size;
+
+          &.inbox {
+            background-color: $inbox-selected-color;
+          }
+
+          &.tasks {
+            background-color: $tasks-selected-color;
+          }
+
+          .icon {
+            transition: 1s;
+            font-size: $quick-button-icon-size-selected;
+          }
+        }
       }
     }
   }

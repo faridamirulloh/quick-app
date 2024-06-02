@@ -5,6 +5,7 @@ export const reducers = {
 
 export const Quick = {
   SET_OPEN_BUTTON: [reducers.QUICK, 'SET_OPEN_BUTTON'].join('/'),
+  SELECT_QUICK: [reducers.QUICK, 'SELECT_QUICK'].join('/'),
 };
 
 export const User = {
