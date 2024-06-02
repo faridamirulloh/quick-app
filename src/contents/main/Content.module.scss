@@ -1,0 +1,21 @@
+@use '/src/styles/variables.module.scss';
+@use '/src/styles/color.module.scss';
+
+.container {
+  height: 100vh;
+  min-width: variables.$Sidebar-width;
+  width: calc(100vw - variables.$Sidebar-width);
+  background-color: color.$primary-bg-color;
+
+  .searchBar {
+    display: flex;
+    align-items: center;
+    height: variables.$PX58;
+    background-color: color.$primary-2;
+
+    .searchIcon {
+      margin-left: variables.$PX26;
+      font-size: variables.$PX16;
+    }
+  }
+}

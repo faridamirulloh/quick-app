@@ -1,0 +1,46 @@
+@import 'https://fonts.googleapis.com/css?family=Lato:400,700';
+@import '/src/styles/variables.module';
+
+body {
+  font-family: Lato, sans-serif;
+  font-variant-ligatures: none;
+  font-feature-settings: 'liga' 0;
+}
+
+// FONT
+@mixin font() {
+  font-family: Lato, sans-serif;
+  font-variant-ligatures: none;
+  font-feature-settings: 'liga' 0;
+}
+
+@mixin font-style($font-size, $line-height, $font-weight) {
+  font-size: $font-size;
+  line-height: $line-height;
+  font-weight: $font-weight;
+}
+
+@mixin text-12px() {
+  @include font;
+  @include font-style($PX12, normal, 400);
+}
+
+@mixin text-14px() {
+  @include font;
+  @include font-style($PX14, normal, 400);
+}
+
+@mixin text-bold-14px() {
+  @include font;
+  @include font-style($PX14, normal, 700);
+}
+
+@mixin text-16px() {
+  @include font;
+  @include font-style($PX16, normal, 400);
+}
+
+@mixin text-bold-16px() {
+  @include font;
+  @include font-style($PX16, normal, 700);
+}

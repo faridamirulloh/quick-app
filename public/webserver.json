@@ -1,0 +1,12 @@
+{
+  "port": "5000",
+  "ipServer": "http://localhost",
+  "logConfig": {
+    "browserLogLevel": 0,
+    "logLevel": 2,
+    "logMaxStackSize": 200,
+    "logKey": "app_log",
+    "___comment0": "logLevel: TRACE: 0, DEBUG: 1, INFO: 2, WARN: 3, ERROR: 4, SILENT: 5",
+    "___comment1": "set logLevel with 2 or higher to avoid ui freeze"
+  }
+}

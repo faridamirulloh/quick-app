@@ -1,0 +1,29 @@
+@use 'sass:color';
+
+// #region Color Palette
+$primary-1: #2f80ed;
+$primary-2: #4f4f4f;
+$primary-3: #828282;
+$primary-4: #e0e0e0;
+$indicator-1: #f8b76b;
+$indicator-2: #8785ff;
+$indicator-3: #eb5757;
+$indicator-4: #f2c94c;
+$chat-1: #fceed3;
+$chat-1-badge: #e5a443;
+$chat-2: #eedcff;
+$chat-2-badge: #eedcff;
+$chat-3: #d2f2ea;
+$chat-3-badge: #43b78d;
+$sticker-1: #e9f3ff;
+$sticker-2: #fdcfa4;
+$sticker-3: #f9e9c3;
+$sticker-4: #afebdb;
+$sticker-5: #cbf1c2;
+$sticker-6: #cfcef9;
+$sticker-7: #f9e0fd;
+
+// #endregion
+
+$primary-bg-color: #333;
+$primary-border-color: #f2f2f2;

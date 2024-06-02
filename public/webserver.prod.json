@@ -1,0 +1,10 @@
+{
+  "port": "5000",
+  "ipServer": "http://localhost",
+  "logConfig": {
+    "browserLogLevel": 2,
+    "logLevel": 2,
+    "logMaxStackSize": 200,
+    "logKey": "app_log"
+  }
+}

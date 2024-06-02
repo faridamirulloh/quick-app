@@ -1,0 +1,10 @@
+@use '/src/styles/variables.module.scss';
+@use '/src/styles/color.module.scss';
+
+.container {
+  height: 100vh;
+  width: variables.$Sidebar-width;
+  min-width: variables.$Sidebar-width;
+  background-color: color.$primary-bg-color;
+  border-right: 1px solid color.$primary-border-color;
+}
