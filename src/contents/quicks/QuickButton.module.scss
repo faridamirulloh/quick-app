@@ -1,0 +1,15 @@
+@use '/src/styles/variables.module.scss';
+@use '/src/styles/color.module.scss';
+
+.container {
+  position: absolute;
+  z-index: 99;
+  right: 0;
+  bottom: 0;
+  background-color: color.$primary-1;
+  border-radius: variables.$PX34;
+
+  .icon {
+    font-size: variables.$PX52;
+  }
+}

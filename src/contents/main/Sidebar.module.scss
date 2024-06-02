@@ -3,8 +3,8 @@
 
 .container {
   height: 100vh;
-  width: variables.$Sidebar-width;
-  min-width: variables.$Sidebar-width;
+  width: variables.$sidebar-width;
+  min-width: variables.$sidebar-width;
   background-color: color.$primary-bg-color;
   border-right: 1px solid color.$primary-border-color;
 }

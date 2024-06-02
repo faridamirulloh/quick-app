@@ -3,8 +3,8 @@
 
 .container {
   height: 100vh;
-  min-width: variables.$Sidebar-width;
-  width: calc(100vw - variables.$Sidebar-width);
+  min-width: variables.$sidebar-width;
+  width: calc(100vw - variables.$sidebar-width);
   background-color: color.$primary-bg-color;
 
   .searchBar {

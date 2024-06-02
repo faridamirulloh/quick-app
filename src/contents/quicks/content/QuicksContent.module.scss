@@ -1,0 +1,12 @@
+@use '/src/styles/variables.module.scss';
+
+.container {
+  width: variables.$quick-content-width;
+  height: variables.$quick-content-height;
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #bdbdbd;
+  border-radius: variables.$PX5;
+  right: 0;
+  bottom: 83px;
+}

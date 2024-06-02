@@ -1,12 +1,3 @@
-// #region Sizes
-$size-xs: 'xs';
-$size-sm: 'sm';
-$size-md: 'md';
-$size-lg: 'lg';
-$size-xl: 'xl';
-
-// #endregion
-
 @mixin full-width() {
   width: 100%;
   width: available;
@@ -136,8 +127,16 @@ $PX61: 3.8125rem;
 $PX62: 3.875rem;
 $PX63: 3.9375rem;
 $PX64: 4rem;
+$PX94: 5.875rem;
 $PX283: 17.688rem;
+$PX734: 45.875rem;
+$PX737: 46.063rem;
 
 // #endregion
 
-$Sidebar-width: $PX283;
+$sidebar-width: $PX283;
+$quick-button-pos-right: $PX34;
+$quick-button-pos-bottom: $PX27;
+$quick-button-space: $PX94;
+$quick-content-width: $PX734;
+$quick-content-height: $PX737;

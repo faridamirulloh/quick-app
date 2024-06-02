@@ -1,10 +1,10 @@
 import {combineReducers} from 'redux';
 
-import appState from './appState';
+import quicksState from './quicksState';
 import userState from './userState';
 
 const rootReducer = combineReducers({
-  appState,
+  quicksState,
   userState,
 });
 

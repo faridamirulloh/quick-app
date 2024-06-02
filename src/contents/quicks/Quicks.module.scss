@@ -1,0 +1,9 @@
+@use '/src/styles/variables.module.scss';
+@use '/src/styles/color.module.scss';
+
+.container {
+  position: absolute;
+  z-index: 99;
+  right: variables.$quick-button-pos-right;
+  bottom: variables.$quick-button-pos-bottom;
+}

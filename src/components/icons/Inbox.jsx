@@ -1,10 +1,10 @@
 import SvgIcon from '@mui/material/SvgIcon';
 import React from 'react';
 
-import Icon from '../../assets/icons/search.svg?react';
+import Icon from '../../assets/icons/question-answer.svg?react';
 
-function IconSearch(props) {
+function IconInbox(props) {
   return <SvgIcon component={Icon} {...props} />;
 }
 
-export default IconSearch;
+export default IconInbox;

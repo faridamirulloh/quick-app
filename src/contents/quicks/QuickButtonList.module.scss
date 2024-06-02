@@ -1,0 +1,60 @@
+@use '/src/styles/animation.module.scss';
+@use '/src/styles/color.module.scss';
+@use '/src/styles/font.module.scss';
+@use '/src/styles/variables.module.scss';
+
+$children: (1, 2, 3, 4, 5);
+
+.container {
+  position: absolute;
+  display: flex;
+  z-index: 98;
+  right: 0;
+  bottom: variables.$PX4;
+  gap: variables.$PX26;
+  animation-duration: 1s;
+
+  .quickButton {
+    position: absolute;
+    right: variables.$PX4;
+    bottom: 0;
+    transition: 1s;
+    display: flex;
+    flex-direction: column;
+    gap: variables.$PX12;
+    align-items: center;
+
+    .label {
+      @include font.text-bold-16px;
+      @include variables.noselect;
+
+      color: #f2f2f2;
+    }
+
+    .button {
+      background-color: #f2f2f2;
+      border-radius: variables.$PX30;
+      height: variables.$PX60;
+      width: variables.$PX60;
+
+      .icon {
+        font-size: variables.$PX26;
+      }
+    }
+  }
+
+  &.hide {
+    visibility: hidden;
+    animation-name: fade-out;
+  }
+
+  &.show {
+    animation-name: fade-in;
+
+    @each $child in $children {
+      > :nth-last-child(#{$child}) {
+        right: $child * variables.$quick-button-space;
+      }
+    }
+  }
+}

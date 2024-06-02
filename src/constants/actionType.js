@@ -1,10 +1,10 @@
 export const reducers = {
-  APP: 'APP',
+  QUICK: 'QUICK',
   USER: 'USER',
 };
 
-export const App = {
-  SET_TEXT: [reducers.APP, 'SET_TEXT'].join('/'),
+export const Quick = {
+  SET_OPEN_BUTTON: [reducers.QUICK, 'SET_OPEN_BUTTON'].join('/'),
 };
 
 export const User = {
