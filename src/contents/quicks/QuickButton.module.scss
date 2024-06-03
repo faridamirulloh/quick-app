@@ -1,5 +1,6 @@
-@use '/src/styles/variables.module.scss';
+@use '/src/styles/animation.module.scss';
 @use '/src/styles/color.module.scss';
+@use '/src/styles/variables.module.scss';
 
 $shadow-button-color: color.$primary-2;
 
@@ -12,7 +13,7 @@ $shadow-button-color: color.$primary-2;
   border-radius: variables.$quick-button-size / 2;
   height: variables.$quick-button-size;
   width: variables.$quick-button-size;
-  transition: 1s;
+  transition: animation.$transition-fast;
 
   &.shadow {
     z-index: 98;

@@ -1,20 +1,29 @@
+@use '/src/styles/animation.module.scss';
 @use '/src/styles/variables.module.scss';
 
 .container {
   width: variables.$quick-content-width;
   height: variables.$quick-content-height;
+  max-height: 75vh;
   position: absolute;
   background-color: #fff;
   border: 1px solid #bdbdbd;
   border-radius: variables.$PX5;
   right: 0;
   bottom: variables.$PX83;
+  transition: animation.$transition-fast;
+  animation-duration: animation.$transition-fast;
 
   &.close {
     visibility: hidden;
+    animation-name: fade-out;
+    width: 0;
+    height: 0;
+    scale: 0.2;
   }
 
   &.open {
     visibility: visible;
+    animation-name: fade-in;
   }
 }

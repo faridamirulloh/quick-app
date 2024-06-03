@@ -10,6 +10,7 @@ $quick-button-icon-size-selected: variables.$PX30;
 $tasks-selected-color: color.$indicator-1;
 $inbox-selected-color: color.$indicator-2;
 $shadow-button-color: color.$primary-2;
+$animation-time: animation.$transition-fast;
 
 .container {
   position: absolute;
@@ -18,13 +19,13 @@ $shadow-button-color: color.$primary-2;
   right: 0;
   bottom: variables.$PX4;
   gap: variables.$PX26;
-  animation-duration: 1s;
+  animation-duration: $animation-time;
 
   .quickButton {
     position: absolute;
     right: variables.$PX4;
     bottom: 0;
-    transition: 1s;
+    transition: $animation-time;
     display: flex;
     flex-direction: column;
     gap: variables.$PX12;
@@ -38,14 +39,14 @@ $shadow-button-color: color.$primary-2;
     }
 
     .button {
-      transition: 1s;
+      transition: $animation-time;
       background-color: #f2f2f2;
-      border-radius: $quick-button-item-size / 2;
+      border-radius: calc($quick-button-item-size / 2);
       height: $quick-button-item-size;
       width: $quick-button-item-size;
 
       .icon {
-        transition: 1s;
+        transition: $animation-time;
         font-size: $quick-button-icon-size;
       }
     }
@@ -61,7 +62,7 @@ $shadow-button-color: color.$primary-2;
 
     @each $child in $children {
       .index#{$child} {
-        right: ($child + 1) * variables.$quick-button-space;
+        right: calc(($child + 1) * variables.$quick-button-space);
       }
     }
 
@@ -71,8 +72,7 @@ $shadow-button-color: color.$primary-2;
         bottom: -(variables.$PX4);
 
         .button {
-          transition: 1s;
-          border-radius: variables.$quick-button-size / 2;
+          border-radius: calc(variables.$quick-button-size / 2);
           height: variables.$quick-button-size;
           width: variables.$quick-button-size;
 
@@ -85,7 +85,7 @@ $shadow-button-color: color.$primary-2;
           }
 
           .icon {
-            transition: 1s;
+            transition: $animation-time;
             font-size: $quick-button-icon-size-selected;
           }
         }
