@@ -1,0 +1,112 @@
+@use '/src/styles/color.module.scss';
+@use '/src/styles/font.module.scss';
+
+.container {
+  position: relative;
+  display: flex;
+  gap: 22px;
+  padding: 22px 0;
+
+  &:first-child {
+    padding-top: 0;
+  }
+
+  &:not(:last-child) {
+    border-bottom: 1px solid color.$primary-3;
+  }
+
+  &:hover {
+    background-color: color.$primary-4;
+    cursor: pointer;
+  }
+
+  &:active {
+    background-color: color.$primary-3;
+  }
+
+  .iconContainer {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    width: 51px;
+    height: 34px;
+
+    .icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 17px;
+    }
+
+    .groupIconShadow {
+      position: absolute;
+      left: 0;
+      background-color: color.$primary-4;
+    }
+
+    .groupIcon {
+      position: absolute;
+      left: 17px;
+      background-color: color.$primary-1;
+    }
+
+    .supportIcon {
+      background-color: color.$primary-1;
+      font-weight: 700;
+      color: #fff;
+    }
+  }
+
+  .detail {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    width: 100%;
+    max-width: calc(100% - 74px);
+
+    .titleContainer {
+      display: flex;
+      gap: 16px;
+
+      .title {
+        @include font.text-bold-16px;
+
+        color: color.$primary-1;
+      }
+
+      .date {
+        @include font.text-14px;
+
+        padding-top: 2px;
+        white-space: nowrap;
+        color: color.$primary-2;
+      }
+    }
+
+    .name {
+      @include font.text-bold-14px;
+    }
+
+    .firstLine {
+      @include font.text-14px;
+
+      max-width: calc(100% - 130px);
+      color: color.$primary-2;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .unread {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    right: 0;
+    bottom: 38px;
+    background-color: color.$indicator-3;
+  }
+}

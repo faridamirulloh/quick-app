@@ -10,7 +10,7 @@ $shadow-button-color: color.$primary-2;
   right: 0;
   bottom: 0;
   background-color: color.$primary-1;
-  border-radius: variables.$quick-button-size / 2;
+  border-radius: calc(variables.$quick-button-size / 2);
   height: variables.$quick-button-size;
   width: variables.$quick-button-size;
   transition: animation.$transition-fast;
