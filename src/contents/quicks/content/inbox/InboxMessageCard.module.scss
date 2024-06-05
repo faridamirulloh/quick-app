@@ -1,5 +1,6 @@
 @use '/src/styles/color.module.scss';
 @use '/src/styles/font.module.scss';
+@use '/src/styles/variables.module.scss';
 
 .container {
   position: relative;
@@ -21,7 +22,7 @@
   }
 
   &:active {
-    background-color: color.$primary-3;
+    background-color: #d6d6d6;
   }
 
   .iconContainer {
@@ -91,12 +92,10 @@
 
     .firstLine {
       @include font.text-14px;
+      @include variables.ellipsis;
 
       max-width: calc(100% - 130px);
       color: color.$primary-2;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
   }
 

@@ -1,0 +1,28 @@
+@use '/src/styles/font.module.scss';
+
+.container {
+  height: calc(100% - 40px);
+  display: flex;
+  flex-direction: column;
+  margin: 24px 32px;
+  gap: 22px;
+
+  .loadingContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    gap: 22px;
+
+    span {
+      @include font.text-bold-14px;
+    }
+  }
+
+  .messageList {
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+  }
+}

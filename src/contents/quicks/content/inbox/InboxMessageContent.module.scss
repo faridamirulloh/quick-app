@@ -1,0 +1,123 @@
+@use '/src/styles/color.module.scss';
+@use '/src/styles/font.module.scss';
+@use '/src/styles/variables.module.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: inherit;
+
+  .header {
+    display: flex;
+    align-items: center;
+    height: 73.5px;
+    border-bottom: 1px solid #bdbdbd;
+    justify-content: space-between;
+    gap: 22px;
+    padding: 0 22px;
+
+    .left {
+      gap: 12px;
+      display: flex;
+      align-items: center;
+      max-width: calc(100% - 60px);
+
+      .headerTitle {
+        @include variables.ellipsis;
+
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+
+        .title {
+          @include font.text-bold-16px;
+          @include variables.ellipsis;
+
+          color: color.$primary-1;
+        }
+
+        .subTitle {
+          @include font.text-12px;
+        }
+      }
+    }
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 100px);
+    width: calc(100% - 44px);
+    padding: 22px;
+    gap: 22px;
+    overflow-y: auto;
+
+    .chatCard {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+
+      @include font.text-bold-14px;
+
+      &.right {
+        display: grid;
+        justify-content: end;
+        justify-items: end;
+      }
+
+      .messageContainer {
+        display: flex;
+        gap: 5px;
+
+        .messageContent {
+          border-radius: 6px;
+          display: flex;
+          flex-direction: column;
+          max-width: 518px;
+          padding: 10px;
+          gap: 10px;
+
+          @include font.text-14px;
+
+          .time {
+            @include font.text-12px;
+          }
+        }
+      }
+    }
+
+    .newMessageButton {
+      position: absolute;
+      background-color: #e9f3ff;
+      color: #2f80ed;
+      font-weight: 700;
+      bottom: 72px;
+      left: 290px;
+      gap: 5px;
+    }
+  }
+
+  .banner {
+    display: flex;
+    align-items: center;
+    height: 54px;
+    gap: 10px;
+    margin: 0 22px;
+    background-color: #e9f3ff;
+    border-radius: 6px;
+    padding: 8px 16px;
+
+    .bannerText {
+      @include font.text-16px;
+    }
+  }
+
+  .inputChat {
+    display: flex;
+    align-items: center;
+    width: calc(100% - 44px);
+    margin: 22px;
+    margin-top: 12px;
+    gap: 13px;
+  }
+}

@@ -1,0 +1,28 @@
+@use '/src/styles/font.module.scss';
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+
+  @include font.text-bold-16px;
+
+  &.unread {
+    color: red;
+
+    .line {
+      border-color: red;
+    }
+  }
+
+  .separatorTitle {
+    text-wrap: nowrap;
+  }
+
+  .line {
+    width: 100%;
+    border-bottom: 2px solid black;
+  }
+}

@@ -19,7 +19,7 @@ const groupIcon = (
 
 const supportIcon = (initial) => <div className={[style.icon, style.supportIcon].join(' ')}>{initial}</div>;
 
-function InboxMessageCard({type, title, date, lastMessage, unread}) {
+function InboxMessageCard({type, title, date, lastMessage = null, unread, openMessage}) {
   let icon;
 
   switch (type) {
@@ -35,8 +35,12 @@ function InboxMessageCard({type, title, date, lastMessage, unread}) {
       break;
   }
 
+  const handleClick = () => {
+    openMessage();
+  };
+
   return (
-    <div className={style.container}>
+    <div className={style.container} role="button" onClick={handleClick} onKeyUp={null} tabIndex={-1}>
       <div className={style.iconContainer}>{icon}</div>
       <div className={style.detail}>
         <div className={style.titleContainer}>
@@ -56,15 +60,12 @@ function InboxMessageCard({type, title, date, lastMessage, unread}) {
 }
 
 InboxMessageCard.propTypes = {
-  type: PropTypes.oneOf(Object.keys(MessageType)).isRequired,
+  type: PropTypes.oneOf(Object.values(MessageType)).isRequired,
   title: PropTypes.string.isRequired,
-  date: PropTypes.string.isRequired,
+  date: PropTypes.object.isRequired,
   unread: PropTypes.bool.isRequired,
   lastMessage: PropTypes.object,
-};
-
-InboxMessageCard.defaultProps = {
-  lastMessage: null,
+  openMessage: PropTypes.func.isRequired,
 };
 
 export default InboxMessageCard;

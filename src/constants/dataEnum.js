@@ -3,8 +3,23 @@ export const QuicksItem = {
   TASKS: 'Tasks',
 };
 
+export const InboxViewMode = {
+  MESSAGES: 'MESSAGES',
+  CHATS: 'CHATS',
+};
+
 export const MessageType = {
-  DIRECT: 'DIRECT',
-  GROUP: 'GROUP',
-  SUPPORT: 'SUPPORT',
+  DIRECT: 'Direct',
+  GROUP: 'Group',
+  SUPPORT: 'Support',
+};
+
+export const ChatSenderType = {
+  SELF: 'Self',
+  ELSE: 'Else',
+};
+
+export const ChatReadType = {
+  READ: 'Read',
+  UNREAD: 'Unread',
 };
