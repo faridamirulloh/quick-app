@@ -1,10 +1,10 @@
 import React from 'react';
 
 import 'react-datepicker/dist/react-datepicker.css';
-import './App.scss';
-import Content from './main/Content';
-import Sidebar from './main/SideBar';
-import Quicks from './quicks/quicks';
+import '@/src/contents/App.scss';
+import Content from '@/src/contents/main/Content';
+import Sidebar from '@/src/contents/main/SideBar';
+import Quicks from '@/src/contents/quicks/quicks';
 
 function App() {
   return (
