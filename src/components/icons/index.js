@@ -1,5 +1,7 @@
 import IconArrowDown from './ArrowDown';
 import IconArrowLeft from './ArrowLeft';
+import IconBookmark from './Bookmark';
+import IconBookmarkBlack from './BookmarkBlack';
 import IconCalendar from './Calendar';
 import IconClose from './Close';
 import IconEdit from './Edit';
@@ -20,6 +22,8 @@ import IconTasksSelected from './TasksSelected';
 export {
   IconArrowLeft,
   IconArrowDown,
+  IconBookmark,
+  IconBookmarkBlack,
   IconCalendar,
   IconClose,
   IconEdit,

@@ -5,9 +5,12 @@ import {
   AccordionDetails,
   AccordionSummary,
   Checkbox,
+  Chip,
   IconButton,
+  ListItem,
   Menu,
   MenuItem,
+  Paper,
   TextField,
 } from '@mui/material';
 import PropTypes from 'prop-types';
@@ -16,6 +19,8 @@ import ReactDatePicker from 'react-datepicker';
 
 import style from './TaskCard.module.scss';
 import {
+  IconBookmark,
+  IconBookmarkBlack,
   IconCalendar,
   IconEdit,
   IconEditBlack,
@@ -24,6 +29,7 @@ import {
   IconScheduleBlack,
 } from '../../../../components/icons';
 import TextArea from '../../../../components/textArea/TextArea';
+import {Stickers} from '../../../../constants/dataEnum';
 import {dateFromNow, getDate} from '../../../../libs/dateHelper';
 
 const editKey = {
@@ -31,8 +37,9 @@ const editKey = {
   DESCRIPTION: 'description',
 };
 
-function TaskCard({id, checked, title, date, description, onChange, onDelete}) {
-  const [anchorEl, setAnchorEl] = useState(null);
+function TaskCard({id, checked, title, date, stickers = [], description, onChange, onDelete}) {
+  const [optionAnchorEl, setOptionAnchorEl] = useState(null);
+  const [stickerAnchorEl, setStickerAnchorEl] = useState(null);
   const [expanded, setExpand] = useState(!title);
   const [edit, setEdit] = useState();
 
@@ -94,12 +101,25 @@ function TaskCard({id, checked, title, date, description, onChange, onDelete}) {
   };
 
   const handleClickOption = (e) => {
-    setAnchorEl(e.currentTarget);
+    setOptionAnchorEl(e.currentTarget);
   };
 
   const handleClickDelete = () => {
-    setAnchorEl();
+    setOptionAnchorEl();
     onDelete(id);
+  };
+
+  const handleClickSticker = (stickerId) => {
+    const newStickers = [...stickers];
+    const index = newStickers.findIndex((_id) => _id === stickerId);
+
+    if (index >= 0) {
+      newStickers.splice(index, 1);
+    } else {
+      newStickers.push(stickerId);
+    }
+
+    onChange({id, key: 'stickers', value: newStickers});
   };
 
   return (
@@ -143,6 +163,32 @@ function TaskCard({id, checked, title, date, description, onChange, onDelete}) {
               {isNew ? <IconEditBlack fontSize="small" /> : <IconEdit fontSize="small" />}
               {displayDescription}
             </div>
+            <div className={style.descriptionSection}>
+              {isNew ? <IconBookmarkBlack /> : <IconBookmark />}
+
+              <Paper
+                sx={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  listStyle: 'none',
+                  p: 0.5,
+                  m: 0,
+                  width: '100%',
+                }}
+                component="ul"
+                onClick={(e) => setStickerAnchorEl(e.currentTarget)}
+              >
+                {stickers.map((_id) => {
+                  const {id, name, color} = Stickers.find(({id}) => _id === id);
+
+                  return (
+                    <ListItem key={id} sx={{width: 'unset', padding: '2px 4px'}}>
+                      <Chip label={name} sx={{borderRadius: '6px', backgroundColor: color}} />
+                    </ListItem>
+                  );
+                })}
+              </Paper>
+            </div>
           </div>
         </AccordionDetails>
       </Accordion>
@@ -150,10 +196,42 @@ function TaskCard({id, checked, title, date, description, onChange, onDelete}) {
       <div className={style.separator} />
 
       <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
-        onClose={() => setAnchorEl()}
+        id="sticker-menu"
+        anchorEl={stickerAnchorEl}
+        open={Boolean(stickerAnchorEl)}
+        onClose={() => setStickerAnchorEl()}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+      >
+        {Stickers.map(({id, name, color}) => (
+          <MenuItem onClick={() => handleClickSticker(id)} key={id}>
+            <Chip
+              label={name}
+              sx={{
+                width: 200,
+                borderRadius: '6px',
+                backgroundColor: color,
+                border: stickers.includes(id) ? '1px solid grey' : '',
+              }}
+            />
+          </MenuItem>
+        ))}
+      </Menu>
+
+      <Menu
+        id="option-menu"
+        anchorEl={optionAnchorEl}
+        open={Boolean(optionAnchorEl)}
+        onClose={() => setOptionAnchorEl()}
         transformOrigin={{
           vertical: 'top',
           horizontal: 'right',
@@ -180,6 +258,7 @@ TaskCard.propTypes = {
   title: PropTypes.string,
   date: PropTypes.object,
   description: PropTypes.string,
+  stickers: PropTypes.array,
   onChange: PropTypes.func,
   onDelete: PropTypes.func,
 };

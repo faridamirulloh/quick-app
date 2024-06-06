@@ -282,6 +282,7 @@ export const tasksList = [
     date: new Date(2024, 5, 9),
     description:
       'Closing off this case since this application has been cancelled. No one really understand how this case could possibly be cancelled. The options and the documents within this document were totally a guaranteed for a success!',
+    stickers: [1, 2, 3, 4, 5, 6, 7, 8],
   },
   {
     id: 2,
@@ -290,6 +291,7 @@ export const tasksList = [
     date: new Date(2024, 5, 11),
     description:
       'All Cases must include all payment transactions, all documents and forms filled. All conversations in comments and messages in channels and emails should be provided as well in.',
+    stickers: [2],
   },
   {
     id: 3,
@@ -297,6 +299,7 @@ export const tasksList = [
     checked: false,
     date: new Date(2024, 5, 19),
     description: null,
+    stickers: [],
   },
   {
     id: 4,
@@ -304,6 +307,7 @@ export const tasksList = [
     checked: true,
     date: new Date(2024, 5, 3),
     description: null,
+    stickers: [],
   },
   {
     id: 5,
@@ -311,5 +315,6 @@ export const tasksList = [
     checked: true,
     date: new Date(2024, 5, 2),
     description: null,
+    stickers: [],
   },
 ];
