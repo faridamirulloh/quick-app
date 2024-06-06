@@ -1,4 +1,4 @@
-import {deleteChatAPI, getChatsListAPI, getMessagesListAPI, sendChatAPI, updateChatAPI} from '../../api/messagesAPI';
+import {deleteChatAPI, getChatsListAPI, getMessagesListAPI, sendChatAPI, editChatAPI} from '../../api/messagesAPI';
 import {ChatSenderType} from '../../constants/dataEnum';
 import {MyID, messageContent, messagesList} from '../../constants/dummyData';
 import {getHour} from '../../libs/dateHelper';
@@ -58,9 +58,9 @@ export const sendChat = async (data) => {
   return;
 };
 
-export const updateChat = async (data) => {
+export const editChat = async (data) => {
   try {
-    const response = await updateChatAPI(data);
+    const response = await editChatAPI(data);
 
     if (response) {
       return;

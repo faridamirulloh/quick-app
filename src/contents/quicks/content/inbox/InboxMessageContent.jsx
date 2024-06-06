@@ -10,7 +10,8 @@ import {IconArrowDown, IconArrowLeft, IconClose} from '../../../../components/ic
 import LoadingContent from '../../../../components/loading/LoadingContent';
 import {MessageType} from '../../../../constants/dataEnum';
 import {MyID} from '../../../../constants/dummyData';
-import {deleteChat, getMessageContent, sendChat} from '../../../../stores/businesses/messagesBusiness';
+import {deleteChatHelper, editChatHelper} from '../../../../libs/chatHelper';
+import {deleteChat, getMessageContent, sendChat, editChat} from '../../../../stores/businesses/messagesBusiness';
 import {onClickQuickButton} from '../../../../stores/businesses/quicksBusiness';
 
 const bannerSupportWaitToConnect = (
@@ -91,26 +92,15 @@ function InboxMessageContent({messageId, onClickBack}) {
     sendChat({messageId, id: MyID, message: newMessageRef.current});
   };
 
-  const handleDeleteChat = (_chatId) => {
-    deleteChat(_chatId);
-    const newChats = {...chatsState};
-    newChats.chatsGroupByRead = newChats.chatsGroupByRead.map((readGroup) => {
-      const newReadGroup = {...readGroup};
-      newReadGroup.chatsGroupByDate = newReadGroup.chatsGroupByDate.map((dateGroup) => {
-        const newDateGroup = {...dateGroup};
+  const handleDeleteChat = (chatId) => {
+    deleteChat(chatId);
+    const newChats = deleteChatHelper(chatId, chatsState);
+    setChats(newChats);
+  };
 
-        newDateGroup.chats = newDateGroup.chats.filter(({chatId}) => chatId !== _chatId);
-
-        return newDateGroup.chats.length > 0 ? newDateGroup : null;
-      });
-
-      newReadGroup.chatsGroupByDate = newReadGroup.chatsGroupByDate.filter((group) => Boolean(group));
-
-      return newReadGroup.chatsGroupByDate.length > 0 ? newReadGroup : null;
-    });
-
-    newChats.chatsGroupByRead = newChats.chatsGroupByRead.filter((group) => Boolean(group));
-
+  const handleEditChat = (data) => {
+    editChat(data);
+    const newChats = editChatHelper(data, chatsState);
     setChats(newChats);
   };
 
@@ -150,8 +140,9 @@ function InboxMessageContent({messageId, onClickBack}) {
                         key={chat.chatId}
                         name={chat.id}
                         type={chat.chatType}
-                        {...chat}
                         onDelete={handleDeleteChat}
+                        onEditChat={handleEditChat}
+                        {...chat}
                       />
                     ))}
                   </>

@@ -4,10 +4,12 @@ import React, {useState} from 'react';
 
 import style from './InboxMessageContent.module.scss';
 import {IconOption} from '../../../../components/icons';
+import TextArea from '../../../../components/textArea/TextArea';
 import {ChatSenderType} from '../../../../constants/dataEnum';
 
-function ChatCard({chatId, name, message, time, color, backgroundColor, type, onDelete}) {
+function ChatCard({chatId, name, message, time, color, backgroundColor, type, onDelete, onEditChat}) {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [edit, setEdit] = useState(false);
 
   const alignRight = type === ChatSenderType.SELF;
 
@@ -17,6 +19,11 @@ function ChatCard({chatId, name, message, time, color, backgroundColor, type, on
 
   const handleClose = () => {
     setAnchorEl();
+  };
+
+  const handleEdit = () => {
+    handleClose();
+    setTimeout(() => setEdit(true), 20);
   };
 
   const handleDelete = () => {
@@ -40,7 +47,7 @@ function ChatCard({chatId, name, message, time, color, backgroundColor, type, on
         }}
       >
         {type === ChatSenderType.SELF ? (
-          <MenuItem onClick={handleClose} sx={{color: '#2F80ED', width: 126, borderBottom: '1px solid #BDBDBD'}}>
+          <MenuItem onClick={handleEdit} sx={{color: '#2F80ED', width: 126, borderBottom: '1px solid #BDBDBD'}}>
             Edit
           </MenuItem>
         ) : null}
@@ -51,10 +58,34 @@ function ChatCard({chatId, name, message, time, color, backgroundColor, type, on
     </div>
   );
 
+  const handleBlurEditChat = () => {
+    setEdit(false);
+  };
+
+  const handleKeyDownEditMessage = (e) => {
+    if (!e.shiftKey && e.key === 'Enter') {
+      handleBlurEditChat();
+      onEditChat({chatId, message: e.target.value});
+    }
+  };
+
   const messageContent = (
     <div className={style.messageContent} style={{backgroundColor}}>
-      <span>{message}</span>
-      <span className={style.time}>{time}</span>
+      {edit ? (
+        <TextArea
+          autoFocus
+          defaultValue={message}
+          placeHolder="Edit message"
+          style={{width: 518}}
+          onKeyDown={handleKeyDownEditMessage}
+          onBlur={handleBlurEditChat}
+        />
+      ) : (
+        <>
+          <span>{message}</span>
+          <span className={style.time}>{time}</span>
+        </>
+      )}
     </div>
   );
 
@@ -89,6 +120,7 @@ ChatCard.propTypes = {
   backgroundColor: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   onDelete: PropTypes.func.isRequired,
+  onEditChat: PropTypes.func.isRequired,
 };
 
 export default ChatCard;

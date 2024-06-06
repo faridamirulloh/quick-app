@@ -19,7 +19,7 @@ export const sendChatAPI = async (data) => {
   return response.data;
 };
 
-export const updateChatAPI = async (data) => {
+export const editChatAPI = async (data) => {
   const response = await api.put([RestAPI.messages.update, data.id].join('/'), data);
   if (!response) throw response;
   return response.data;
