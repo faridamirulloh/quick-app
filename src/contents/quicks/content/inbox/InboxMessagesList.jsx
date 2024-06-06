@@ -15,7 +15,7 @@ function InboxMessagesList({openMessage}) {
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 1000);
+    }, 700);
   }, []);
 
   const messagesFiltered = messagesList.filter(({title}) => title?.toLowerCase().includes(searchByName.toLowerCase()));

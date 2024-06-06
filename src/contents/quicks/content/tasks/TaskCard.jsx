@@ -15,7 +15,14 @@ import React, {useState} from 'react';
 import ReactDatePicker from 'react-datepicker';
 
 import style from './TaskCard.module.scss';
-import {IconCalendar, IconEdit, IconOption, IconSchedule} from '../../../../components/icons';
+import {
+  IconCalendar,
+  IconEdit,
+  IconEditBlack,
+  IconOption,
+  IconSchedule,
+  IconScheduleBlack,
+} from '../../../../components/icons';
 import TextArea from '../../../../components/textArea/TextArea';
 import {dateFromNow, getDate} from '../../../../libs/dateHelper';
 
@@ -23,24 +30,26 @@ const editKey = {
   TITLE: 'title',
   DESCRIPTION: 'description',
 };
-function TaskCard({checked, title, date, description}) {
+
+function TaskCard({id, checked, title, date, description, onChange, onDelete}) {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [expanded, setExpand] = useState([]);
-  const [checkedState, setChecked] = useState(checked);
-  const [dateState, setDate] = useState(date);
-  const [titleState, setTitle] = useState(title);
-  const [descriptionState, setDescription] = useState(description);
+  const [expanded, setExpand] = useState(!title);
   const [edit, setEdit] = useState();
 
+  const isNew = !title;
+
   const displayTitle =
-    edit === editKey.TITLE ? (
+    edit === editKey.TITLE || isNew ? (
       <TextField
         autoFocus
         size="small"
-        value={titleState}
-        onChange={(e) => setTitle(e.target.value)}
+        placeholder="Type Task Title"
+        defaultValue={title}
         fullWidth
-        onBlur={() => setEdit()}
+        onBlur={(e) => {
+          setEdit();
+          onChange({id, key: 'title', value: e.target.value});
+        }}
       />
     ) : (
       <div
@@ -48,9 +57,9 @@ function TaskCard({checked, title, date, description}) {
         onClick={() => setEdit(editKey.TITLE)}
         onKeyDown={null}
         tabIndex={-1}
-        className={[style.title, checkedState ? style.checked : ''].join(' ')}
+        className={[style.title, checked ? style.checked : ''].join(' ')}
       >
-        {titleState}
+        {title}
       </div>
     );
 
@@ -58,56 +67,58 @@ function TaskCard({checked, title, date, description}) {
     edit === editKey.DESCRIPTION ? (
       <TextArea
         autoFocus
-        defaultValue={descriptionState}
+        defaultValue={description}
         fullWidth
         onBlur={(e) => {
           setEdit();
-          setDescription(e.target.value);
+          onChange({id, key: 'description', value: e.target.value});
         }}
       />
     ) : (
       <div role="button" onClick={() => setEdit(editKey.DESCRIPTION)} onKeyDown={null} tabIndex={-1}>
-        {descriptionState || 'No Description'}
+        {description || 'No Description'}
       </div>
     );
 
-  const handleExpand = (id) => {
-    const idIndex = expanded.findIndex((_id) => _id === id);
-    const newExpanded = [...expanded];
-
-    if (idIndex >= 0) {
-      newExpanded.splice(idIndex, 1);
-    } else {
-      newExpanded.push(id);
-    }
-
-    setExpand(newExpanded);
+  const handleExpand = () => {
+    setExpand(!expanded);
   };
 
-  const handleCheck = (e, _checked) => setChecked(_checked);
+  const handleCheck = (e, _checked) => {
+    onChange({id, key: 'checked', vallue: _checked});
+  };
+
+  const handleChangeDate = (_date) => {
+    onChange({id, key: 'date', value: _date});
+  };
 
   const handleClickOption = (e) => {
     setAnchorEl(e.currentTarget);
   };
 
-  const handleClose = () => {
+  const handleClickDelete = () => {
     setAnchorEl();
+    onDelete(id);
   };
 
   return (
     <div className={style.container}>
-      <Accordion expanded={expanded.includes(1)}>
+      <Accordion expanded={expanded}>
         <AccordionSummary>
           <div className={style.summary}>
             <div className={style.alignLeft}>
-              <Checkbox checked={checkedState} onChange={handleCheck} />
+              <Checkbox checked={checked} onChange={handleCheck} />
               {displayTitle}
             </div>
             <div className={style.alignRight}>
-              {!checkedState ? <span className={style.textRed}>{dateFromNow(date)}</span> : null}
-              <span>{getDate(date)}</span>
+              {date && (
+                <>
+                  {!checked ? <span className={style.textRed}>{dateFromNow(date)}</span> : null}
+                  <span>{getDate(date)}</span>
+                </>
+              )}
               <IconButton onClick={() => handleExpand(1)}>
-                {expanded.includes(1) ? <ExpandMoreIcon /> : <ExpandLessIcon />}
+                {expanded ? <ExpandMoreIcon /> : <ExpandLessIcon />}
               </IconButton>
               <IconButton onClick={handleClickOption}>
                 <IconOption />
@@ -118,16 +129,17 @@ function TaskCard({checked, title, date, description}) {
         <AccordionDetails>
           <div className={style.description}>
             <div className={style.descriptionSection}>
-              <IconSchedule />
+              {isNew ? <IconScheduleBlack /> : <IconSchedule />}
               <ReactDatePicker
                 showIcon
+                placeholderText="Set Date"
                 icon={<IconCalendar sx={{fontSize: 12, right: 0}} />}
-                selected={dateState}
-                onChange={(date) => setDate(date)}
+                selected={date}
+                onChange={handleChangeDate}
               />
             </div>
             <div className={style.descriptionSection}>
-              <IconEdit fontSize="small" />
+              {isNew ? <IconEditBlack fontSize="small" /> : <IconEdit fontSize="small" />}
               {displayDescription}
             </div>
           </div>
@@ -140,7 +152,7 @@ function TaskCard({checked, title, date, description}) {
         id="basic-menu"
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
-        onClose={handleClose}
+        onClose={() => setAnchorEl()}
         transformOrigin={{
           vertical: 'top',
           horizontal: 'right',
@@ -153,7 +165,7 @@ function TaskCard({checked, title, date, description}) {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={handleClose} sx={{color: '#EB5757', width: 126}}>
+        <MenuItem onClick={handleClickDelete} sx={{color: '#EB5757', width: 126}}>
           Delete
         </MenuItem>
       </Menu>
@@ -162,10 +174,13 @@ function TaskCard({checked, title, date, description}) {
 }
 
 TaskCard.propTypes = {
+  id: PropTypes.number,
   checked: PropTypes.bool,
   title: PropTypes.string,
   date: PropTypes.object,
   description: PropTypes.string,
+  onChange: PropTypes.func,
+  onDelete: PropTypes.func,
 };
 
 export default TaskCard;

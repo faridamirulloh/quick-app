@@ -10,15 +10,46 @@ import {tasksList} from '../../../../constants/dummyData';
 function QuickContentTasks() {
   const [selectedType, selectType] = useState(TaskTypeList[0].id);
   const [isLoading, setLoading] = useState(true);
+  const [tasksListState, setTasksList] = useState(tasksList);
 
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 100);
+    }, 700);
   }, []);
 
   const handleChangeFilterType = (e) => {
     selectType(e.target.value);
+  };
+
+  const handleClickNewTasks = () => {
+    const newList = [...tasksListState];
+
+    newList.push({
+      id: Math.random(),
+      title: null,
+      checked: false,
+      date: null,
+      description: null,
+    });
+
+    setTasksList(newList);
+  };
+
+  const handleChange = ({id, key, value}) => {
+    const newList = [...tasksListState];
+    const index = newList.findIndex(({id: _id}) => _id === id);
+    newList[index][key] = value;
+
+    setTasksList(newList);
+  };
+
+  const handleDelete = (id) => {
+    const newList = [...tasksListState];
+    const index = newList.findIndex(({id: _id}) => _id === id);
+    newList.splice(index, 1);
+
+    setTasksList(newList);
   };
 
   return (
@@ -37,7 +68,7 @@ function QuickContentTasks() {
             </MenuItem>
           ))}
         </Select>
-        <Button variant="contained" size="small">
+        <Button variant="contained" size="small" onClick={handleClickNewTasks}>
           New Tasks
         </Button>
       </div>
@@ -46,8 +77,10 @@ function QuickContentTasks() {
         <LoadingContent text="Loading Task List ..." />
       ) : (
         <div className={style.taskList}>
-          {tasksList.length > 0 ? (
-            tasksList.map((task) => <TaskCard key={task.id} {...task} />)
+          {tasksListState.length > 0 ? (
+            tasksListState.map((task) => (
+              <TaskCard key={task.id} {...task} onChange={handleChange} onDelete={handleDelete} />
+            ))
           ) : (
             <div>No Task Yet</div>
           )}
