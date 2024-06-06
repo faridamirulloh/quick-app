@@ -1,4 +1,5 @@
 import {Button, CircularProgress, IconButton, TextField} from '@mui/material';
+import {isEmpty} from 'lodash';
 import PropTypes from 'prop-types';
 import React, {useEffect, useRef, useState} from 'react';
 import {useDispatch} from 'react-redux';
@@ -89,11 +90,13 @@ function InboxMessageContent({messageId, onClickBack}) {
   };
 
   const handleClickSend = async () => {
-    sendChat({messageId, id: MyID, message: newMessageRef.current.target.value});
-    const newChats = sendChatHelper(newMessageRef.current.target.value, chatsState);
-    setChats(newChats);
-    newMessageRef.current.target.value = '';
-    scrollToBottom();
+    if (!isEmpty(newMessageRef.current.target.value)) {
+      sendChat({messageId, id: MyID, message: newMessageRef.current.target.value});
+      const newChats = sendChatHelper(newMessageRef.current.target.value, chatsState);
+      setChats(newChats);
+      newMessageRef.current.target.value = '';
+      scrollToBottom();
+    }
   };
 
   const handleDeleteChat = (chatId) => {
