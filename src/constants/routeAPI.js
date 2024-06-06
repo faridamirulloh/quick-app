@@ -16,4 +16,11 @@ export const RestAPI = {
   users: {
     getData: [version.api, services.USERS].join('/'),
   },
+
+  tasks: {
+    getList: [version.api, services.USERS].join('/'),
+    create: [version.api, services.USERS].join('/'),
+    update: [version.api, services.USERS].join('/'),
+    delete: [version.api, services.USERS].join('/'),
+  },
 };

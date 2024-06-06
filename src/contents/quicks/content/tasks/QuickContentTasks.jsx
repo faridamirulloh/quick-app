@@ -6,6 +6,7 @@ import TaskCard from './TaskCard';
 import LoadingContent from '../../../../components/loading/LoadingContent';
 import {TaskTypeList} from '../../../../constants/dataEnum';
 import {tasksList} from '../../../../constants/dummyData';
+import {createTask, deleteTask, getTaskList, updateTask} from '../../../../stores/businesses/tasksBussiness';
 
 function QuickContentTasks() {
   const [selectedType, selectType] = useState(TaskTypeList[0].id);
@@ -13,9 +14,13 @@ function QuickContentTasks() {
   const [tasksListState, setTasksList] = useState(tasksList);
 
   useEffect(() => {
-    setTimeout(() => {
+    const loadTaskList = async () => {
+      const taskList = await getTaskList();
+      setTasksList(taskList);
       setLoading(false);
-    }, 700);
+    };
+
+    loadTaskList();
   }, []);
 
   const handleChangeFilterType = (e) => {
@@ -24,15 +29,16 @@ function QuickContentTasks() {
 
   const handleClickNewTasks = () => {
     const newList = [...tasksListState];
-
-    newList.push({
+    const newTask = {
       id: Math.random(),
       title: null,
       checked: false,
       date: null,
       description: null,
-    });
+    };
+    newList.push(newTask);
 
+    createTask(newTask);
     setTasksList(newList);
   };
 
@@ -41,6 +47,7 @@ function QuickContentTasks() {
     const index = newList.findIndex(({id: _id}) => _id === id);
     newList[index][key] = value;
 
+    updateTask(newList[index]);
     setTasksList(newList);
   };
 
@@ -49,6 +56,7 @@ function QuickContentTasks() {
     const index = newList.findIndex(({id: _id}) => _id === id);
     newList.splice(index, 1);
 
+    deleteTask(id);
     setTasksList(newList);
   };
 
