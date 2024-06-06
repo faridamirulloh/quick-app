@@ -1,0 +1,14 @@
+@use '/src/styles/font.module.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  gap: 22px;
+
+  span {
+    @include font.text-bold-14px;
+  }
+}

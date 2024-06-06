@@ -257,3 +257,43 @@ export const messageContent = messagesList.map((message) => {
 
   return getSupportMessageContent(message);
 });
+
+export const tasksList = [
+  {
+    id: 1,
+    title: 'Close off Case #012920- RODRIGUES, Amiguel',
+    checked: false,
+    date: new Date(2024, 5, 9),
+    description:
+      'Closing off this case since this application has been cancelled. No one really understand how this case could possibly be cancelled. The options and the documents within this document were totally a guaranteed for a success!',
+  },
+  {
+    id: 2,
+    title: 'Set up documentation report for several Cases : Case 145443, Case 192829 and Case 182203',
+    checked: false,
+    date: new Date(2024, 5, 11),
+    description:
+      'All Cases must include all payment transactions, all documents and forms filled. All conversations in comments and messages in channels and emails should be provided as well in.',
+  },
+  {
+    id: 3,
+    title: 'Set up appointment with Dr Blake',
+    checked: false,
+    date: new Date(2024, 5, 19),
+    description: null,
+  },
+  {
+    id: 4,
+    title: 'Contact Mr Caleb - video conference?',
+    checked: true,
+    date: new Date(2024, 5, 3),
+    description: null,
+  },
+  {
+    id: 5,
+    title: 'Assign 3 homework to Client A',
+    checked: true,
+    date: new Date(2024, 5, 2),
+    description: null,
+  },
+];

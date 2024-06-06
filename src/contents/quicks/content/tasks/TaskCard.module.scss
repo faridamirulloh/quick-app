@@ -1,0 +1,54 @@
+.container {
+  width: 100%;
+
+  .summary {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    .alignLeft {
+      display: flex;
+      align-items: center;
+      max-width: 400px;
+    }
+
+    .alignRight {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .title {
+      display: flex;
+
+      &.checked {
+        text-decoration: line-through;
+      }
+    }
+
+    .textRed {
+      color: #eb5757;
+    }
+  }
+
+  .description {
+    display: flex;
+    flex-direction: column;
+    margin: 0 42px;
+    gap: 16px;
+
+    .descriptionSection {
+      display: flex;
+      gap: 18px;
+
+      & > span {
+        padding-left: 4px;
+      }
+    }
+  }
+
+  .separator {
+    margin: 0 16px;
+    border-bottom: 1px solid #828282;
+  }
+}

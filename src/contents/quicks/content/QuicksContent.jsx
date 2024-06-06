@@ -3,6 +3,7 @@ import {useSelector} from 'react-redux';
 
 import QuickContentInbox from './inbox/QuickContentInbox';
 import style from './QuicksContent.module.scss';
+import QuickContentTasks from './tasks/QuickContentTasks';
 import {QuicksItem} from '../../../constants/dataEnum';
 
 function QuicksContent() {
@@ -14,6 +15,9 @@ function QuicksContent() {
   switch (selectedQuick) {
     case QuicksItem.INBOX:
       content = <QuickContentInbox />;
+      break;
+    case QuicksItem.TASKS:
+      content = <QuickContentTasks />;
       break;
 
     default:

@@ -3,7 +3,7 @@ import React from 'react';
 
 import style from './ChatSeparator.module.scss';
 
-function ChatSeparator({title, unread}) {
+function ChatSeparator({title = '', unread = false}) {
   return (
     <div className={[style.container, unread ? style.unread : ''].join(' ')}>
       <div className={style.line} />
@@ -15,11 +15,7 @@ function ChatSeparator({title, unread}) {
 
 ChatSeparator.propTypes = {
   title: PropTypes.string,
-  unread: PropTypes.bool.isRequired,
-};
-
-ChatSeparator.defaultProps = {
-  title: '',
+  unread: PropTypes.bool,
 };
 
 export default ChatSeparator;

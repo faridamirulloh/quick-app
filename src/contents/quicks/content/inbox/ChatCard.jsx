@@ -34,9 +34,11 @@ function ChatCard({name, message, time, color, backgroundColor, type}) {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={handleClose} sx={{color: '#2F80ED', width: 126, borderBottom: '1px solid #BDBDBD'}}>
-          Edit
-        </MenuItem>
+        {type === ChatSenderType.SELF ? (
+          <MenuItem onClick={handleClose} sx={{color: '#2F80ED', width: 126, borderBottom: '1px solid #BDBDBD'}}>
+            Edit
+          </MenuItem>
+        ) : null}
         <MenuItem onClick={handleClose} sx={{color: '#EB5757', width: 126}}>
           Delete
         </MenuItem>

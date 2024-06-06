@@ -1,18 +1,12 @@
-import {CircularProgress, InputAdornment, TextField} from '@mui/material';
+import {InputAdornment, TextField} from '@mui/material';
 import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 
 import InboxMessageCard from './InboxMessageCard';
 import style from './InboxMessagesList.module.scss';
 import {IconSearchBlack} from '../../../../components/icons';
+import LoadingContent from '../../../../components/loading/LoadingContent';
 import {messagesList} from '../../../../constants/dummyData';
-
-const loadingContent = (
-  <div className={style.loadingContent}>
-    <CircularProgress size={45} style={{color: '#C4C4C4'}} />
-    <span>Loading Chats ...</span>
-  </div>
-);
 
 function InboxMessagesList({openMessage}) {
   const [searchByName, setSearchByName] = useState('');
@@ -43,7 +37,7 @@ function InboxMessagesList({openMessage}) {
       />
 
       {isLoading ? (
-        loadingContent
+        <LoadingContent text="Loading Chats ..." />
       ) : (
         <div className={style.messageList}>
           {messagesFiltered.map((message) => (

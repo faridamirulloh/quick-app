@@ -4,8 +4,8 @@ export const QuicksItem = {
 };
 
 export const InboxViewMode = {
-  MESSAGES: 'MESSAGES',
-  CHATS: 'CHATS',
+  MESSAGES_LIST: 'MESSAGES_LIST',
+  MESSAGE_CONTENT: 'MESSAGE_CONTENT',
 };
 
 export const MessageType = {
@@ -23,3 +23,11 @@ export const ChatReadType = {
   READ: 'Read',
   UNREAD: 'Unread',
 };
+
+export const TaskType = {
+  MY_TASKS: 'My Tasks',
+  PERSONAL: 'Personal Errands',
+  URGENT: 'Urgent To-Do',
+};
+
+export const TaskTypeList = Object.values(TaskType).map((label, id) => ({id, label}));
