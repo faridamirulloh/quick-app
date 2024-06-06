@@ -53,6 +53,7 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
+    'jsx-a11y/no-autofocus': 'off',
     // #endregion
 
     // #region eslint rules.

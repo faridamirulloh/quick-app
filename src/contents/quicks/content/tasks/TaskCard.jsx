@@ -1,20 +1,75 @@
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import {Accordion, AccordionDetails, AccordionSummary, Checkbox, IconButton, Menu, MenuItem} from '@mui/material';
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Checkbox,
+  IconButton,
+  Menu,
+  MenuItem,
+  TextField,
+} from '@mui/material';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 import ReactDatePicker from 'react-datepicker';
 
-import 'react-datepicker/dist/react-datepicker.css';
 import style from './TaskCard.module.scss';
 import {IconCalendar, IconEdit, IconOption, IconSchedule} from '../../../../components/icons';
+import TextArea from '../../../../components/textArea/TextArea';
 import {dateFromNow, getDate} from '../../../../libs/dateHelper';
 
+const editKey = {
+  TITLE: 'title',
+  DESCRIPTION: 'description',
+};
 function TaskCard({checked, title, date, description}) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [expanded, setExpand] = useState([]);
   const [checkedState, setChecked] = useState(checked);
   const [dateState, setDate] = useState(date);
+  const [titleState, setTitle] = useState(title);
+  const [descriptionState, setDescription] = useState(description);
+  const [edit, setEdit] = useState();
+
+  const displayTitle =
+    edit === editKey.TITLE ? (
+      <TextField
+        autoFocus
+        size="small"
+        value={titleState}
+        onChange={(e) => setTitle(e.target.value)}
+        fullWidth
+        onBlur={() => setEdit()}
+      />
+    ) : (
+      <div
+        role="button"
+        onClick={() => setEdit(editKey.TITLE)}
+        onKeyDown={null}
+        tabIndex={-1}
+        className={[style.title, checkedState ? style.checked : ''].join(' ')}
+      >
+        {titleState}
+      </div>
+    );
+
+  const displayDescription =
+    edit === editKey.DESCRIPTION ? (
+      <TextArea
+        autoFocus
+        defaultValue={descriptionState}
+        fullWidth
+        onBlur={(e) => {
+          setEdit();
+          setDescription(e.target.value);
+        }}
+      />
+    ) : (
+      <div role="button" onClick={() => setEdit(editKey.DESCRIPTION)} onKeyDown={null} tabIndex={-1}>
+        {descriptionState || 'No Description'}
+      </div>
+    );
 
   const handleExpand = (id) => {
     const idIndex = expanded.findIndex((_id) => _id === id);
@@ -46,7 +101,7 @@ function TaskCard({checked, title, date, description}) {
           <div className={style.summary}>
             <div className={style.alignLeft}>
               <Checkbox checked={checkedState} onChange={handleCheck} />
-              <span className={[style.title, checkedState ? style.checked : ''].join(' ')}>{title}</span>
+              {displayTitle}
             </div>
             <div className={style.alignRight}>
               {!checkedState ? <span className={style.textRed}>{dateFromNow(date)}</span> : null}
@@ -73,7 +128,7 @@ function TaskCard({checked, title, date, description}) {
             </div>
             <div className={style.descriptionSection}>
               <IconEdit fontSize="small" />
-              <span>{description || 'No Description'}</span>
+              {displayDescription}
             </div>
           </div>
         </AccordionDetails>

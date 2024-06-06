@@ -1,3 +1,5 @@
+@use '/src/styles/font.module.scss';
+
 .container {
   width: 100%;
 
@@ -9,6 +11,7 @@
     .alignLeft {
       display: flex;
       align-items: center;
+      width: 100%;
       max-width: 400px;
     }
 
@@ -19,7 +22,10 @@
     }
 
     .title {
-      display: flex;
+      overflow: hidden;
+      overflow-wrap: anywhere;
+      max-height: 3em;
+      line-height: 1.5em;
 
       &.checked {
         text-decoration: line-through;
@@ -28,6 +34,8 @@
 
     .textRed {
       color: #eb5757;
+
+      @include font.ellipsis;
     }
   }
 

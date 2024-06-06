@@ -1,0 +1,7 @@
+.MuiAccordion-root {
+  box-shadow: none !important;
+
+  .MuiAccordionSummary-root.Mui-focusVisible {
+    background-color: transparent;
+  }
+}

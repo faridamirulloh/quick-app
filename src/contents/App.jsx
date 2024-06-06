@@ -1,5 +1,6 @@
 import React from 'react';
 
+import 'react-datepicker/dist/react-datepicker.css';
 import './App.scss';
 import Content from './main/Content';
 import Sidebar from './main/SideBar';
