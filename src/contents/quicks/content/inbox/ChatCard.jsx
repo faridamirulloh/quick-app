@@ -47,13 +47,24 @@ function ChatCard({chatId, name, message, time, color, backgroundColor, type, on
         }}
       >
         {type === ChatSenderType.SELF ? (
-          <MenuItem onClick={handleEdit} sx={{color: '#2F80ED', width: 126, borderBottom: '1px solid #BDBDBD'}}>
-            Edit
-          </MenuItem>
-        ) : null}
-        <MenuItem onClick={handleDelete} sx={{color: '#EB5757', width: 126}}>
-          Delete
-        </MenuItem>
+          <>
+            <MenuItem onClick={handleEdit} sx={{color: '#2F80ED', width: 126, borderBottom: '1px solid #BDBDBD'}}>
+              Edit
+            </MenuItem>
+            <MenuItem onClick={handleDelete} sx={{color: '#EB5757', width: 126}}>
+              Delete
+            </MenuItem>
+          </>
+        ) : (
+          <>
+            <MenuItem onClick={null} sx={{color: '#2F80ED', width: 126, borderBottom: '1px solid #BDBDBD'}}>
+              Share
+            </MenuItem>
+            <MenuItem onClick={null} sx={{color: '#2F80ED', width: 126}}>
+              Reply
+            </MenuItem>
+          </>
+        )}
       </Menu>
     </div>
   );
