@@ -36,7 +36,7 @@ function TaskCard({id, checked, title, date, description, onChange, onDelete}) {
   const [expanded, setExpand] = useState(!title);
   const [edit, setEdit] = useState();
 
-  const isNew = !title;
+  const isNew = !title && expanded;
 
   const displayTitle =
     edit === editKey.TITLE || isNew ? (
@@ -68,6 +68,7 @@ function TaskCard({id, checked, title, date, description, onChange, onDelete}) {
       <TextArea
         autoFocus
         defaultValue={description}
+        placeHolder="Type Description"
         fullWidth
         onBlur={(e) => {
           setEdit();
@@ -85,7 +86,7 @@ function TaskCard({id, checked, title, date, description, onChange, onDelete}) {
   };
 
   const handleCheck = (e, _checked) => {
-    onChange({id, key: 'checked', vallue: _checked});
+    onChange({id, key: 'checked', value: _checked});
   };
 
   const handleChangeDate = (_date) => {
@@ -174,7 +175,7 @@ function TaskCard({id, checked, title, date, description, onChange, onDelete}) {
 }
 
 TaskCard.propTypes = {
-  id: PropTypes.number,
+  id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   checked: PropTypes.bool,
   title: PropTypes.string,
   date: PropTypes.object,
