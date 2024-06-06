@@ -15,3 +15,10 @@ export const dateFromNow = (date) =>
     .replace('days', 'Days left')
     .replace('hours', 'Hours left')
     .replace('left ago', 'ago');
+
+export const getDateLong = (date) =>
+  date.toLocaleString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });

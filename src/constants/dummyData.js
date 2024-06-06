@@ -64,7 +64,7 @@ const getGroupMessageContentUnread = (message) => ({
       read: true,
       chatsGroupByDate: [
         {
-          date: 'Yesterday June 10, 2021',
+          date: '3 Year ago June 10, 2021',
           chats: [
             {
               id: 'Mary Hilda',
@@ -87,7 +87,7 @@ const getGroupMessageContentUnread = (message) => ({
           ],
         },
         {
-          date: 'Today June 09, 2021',
+          date: '3 Year Ago June 09, 2021',
           chats: [
             {
               id: 'Mary Hilda',
@@ -155,7 +155,7 @@ const getGroupMessageContent = (message) => ({
       read: true,
       chatsGroupByDate: [
         {
-          date: 'Yesterday June 10, 2021',
+          date: '3 Year ago June 10, 2021',
           chats: [
             {
               id: 'Mary Hilda',
@@ -178,7 +178,7 @@ const getGroupMessageContent = (message) => ({
           ],
         },
         {
-          date: 'Today June 09, 2021',
+          date: '3 Year Ago June 09, 2021',
           chats: [
             {
               id: 'Mary Hilda',
@@ -237,7 +237,7 @@ const getSupportMessageContent = (message) => ({
       read: true,
       chatsGroupByDate: [
         {
-          date: 'Today June 09, 2021',
+          date: '3 Year Ago June 09, 2021',
           chats: [
             {
               id: 'FastVisa Support',

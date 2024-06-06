@@ -10,7 +10,7 @@ import {IconArrowDown, IconArrowLeft, IconClose} from '../../../../components/ic
 import LoadingContent from '../../../../components/loading/LoadingContent';
 import {MessageType} from '../../../../constants/dataEnum';
 import {MyID} from '../../../../constants/dummyData';
-import {deleteChatHelper, editChatHelper} from '../../../../libs/chatHelper';
+import {deleteChatDummyHelper, editChatDummyHelper, sendChatHelper} from '../../../../libs/chatHelper';
 import {deleteChat, getMessageContent, sendChat, editChat} from '../../../../stores/businesses/messagesBusiness';
 import {onClickQuickButton} from '../../../../stores/businesses/quicksBusiness';
 
@@ -89,18 +89,22 @@ function InboxMessageContent({messageId, onClickBack}) {
   };
 
   const handleClickSend = async () => {
-    sendChat({messageId, id: MyID, message: newMessageRef.current});
+    sendChat({messageId, id: MyID, message: newMessageRef.current.target.value});
+    const newChats = sendChatHelper(newMessageRef.current.target.value, chatsState);
+    setChats(newChats);
+    newMessageRef.current.target.value = '';
+    scrollToBottom();
   };
 
   const handleDeleteChat = (chatId) => {
     deleteChat(chatId);
-    const newChats = deleteChatHelper(chatId, chatsState);
+    const newChats = deleteChatDummyHelper(chatId, chatsState);
     setChats(newChats);
   };
 
   const handleEditChat = (data) => {
     editChat(data);
-    const newChats = editChatHelper(data, chatsState);
+    const newChats = editChatDummyHelper(data, chatsState);
     setChats(newChats);
   };
 
@@ -162,11 +166,12 @@ function InboxMessageContent({messageId, onClickBack}) {
       {banner}
       <div className={style.inputChat}>
         <TextField
+          ref={newMessageRef}
           placeholder="Type a new message"
           size="small"
           fullWidth
           onBlur={(e) => {
-            newMessageRef.current = e.target.value;
+            newMessageRef.current = e;
           }}
         />
         <Button variant="contained" size="large" onClick={handleClickSend}>

@@ -1,6 +1,56 @@
-import {getHour} from './dateHelper';
+import {getDateLong, getHour} from './dateHelper';
+import {ChatSenderType} from '../constants/dataEnum';
+import {MyID} from '../constants/dummyData';
 
-export const deleteChatHelper = (_chatId, chats) => {
+export const sendChatHelper = (chat, chats) => {
+  const date = 'Today ' + getDateLong(new Date());
+  const newChat = {
+    id: MyID,
+    color: '#9B51E0',
+    chatId: Math.random(),
+    backgroundColor: '#EEDCFF',
+    chatType: ChatSenderType.SELF,
+    message: chat,
+    time: getHour(new Date()),
+  };
+  let added = false;
+
+  const newChats = {...chats};
+  newChats.chatsGroupByRead = [newChats.chatsGroupByRead[0]];
+
+  newChats.chatsGroupByRead = newChats.chatsGroupByRead.map((readGroup) => {
+    const newReadGroup = {...readGroup};
+    newReadGroup.chatsGroupByDate = newReadGroup.chatsGroupByDate.map((dateGroup, dateIdx) => {
+      const newDateGroup = {...dateGroup};
+
+      if (dateIdx === newReadGroup.chatsGroupByDate.length - 1) {
+        if (chats.chatsGroupByRead[1]) {
+          newDateGroup.chats.push(chats.chatsGroupByRead[1].chatsGroupByDate[0].chats[0]);
+        }
+
+        if (date === dateGroup.date) {
+          newDateGroup.chats.push(newChat);
+          added = true;
+        }
+      }
+
+      return newDateGroup;
+    });
+
+    if (!added) {
+      const newGroupByDate = {date, chats: [newChat]};
+      newReadGroup.chatsGroupByDate.push(newGroupByDate);
+    }
+
+    return newReadGroup;
+  });
+
+  newChats.unread = false;
+
+  return newChats;
+};
+
+export const deleteChatDummyHelper = (_chatId, chats) => {
   const newChats = {...chats};
   newChats.chatsGroupByRead = newChats.chatsGroupByRead.map((readGroup) => {
     const newReadGroup = {...readGroup};
@@ -19,10 +69,12 @@ export const deleteChatHelper = (_chatId, chats) => {
 
   newChats.chatsGroupByRead = newChats.chatsGroupByRead.filter((group) => Boolean(group));
 
+  if (!newChats.chatsGroupByRead[1]) newChats.unread = false;
+
   return newChats;
 };
 
-export const editChatHelper = (data, chats) => {
+export const editChatDummyHelper = (data, chats) => {
   const newChats = {...chats};
   newChats.chatsGroupByRead = newChats.chatsGroupByRead.map((readGroup) => {
     const newReadGroup = {...readGroup};
@@ -43,12 +95,8 @@ export const editChatHelper = (data, chats) => {
       return newDateGroup;
     });
 
-    newReadGroup.chatsGroupByDate = newReadGroup.chatsGroupByDate.filter((group) => Boolean(group));
-
     return newReadGroup;
   });
-
-  newChats.chatsGroupByRead = newChats.chatsGroupByRead.filter((group) => Boolean(group));
 
   return newChats;
 };
