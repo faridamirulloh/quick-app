@@ -1,10 +1,9 @@
-import path from 'path';
-
 import react from '@vitejs/plugin-react-swc';
 // eslint-disable-next-line no-unused-vars
 import {defineConfig, loadEnv} from 'vite';
 import eslint from 'vite-plugin-eslint';
 import svgr from 'vite-plugin-svgr';
+
 // https://vitejs.dev/config/
 export default defineConfig(({mode}) => {
   // Load env file based on `mode` in the current working directory.
@@ -24,7 +23,6 @@ export default defineConfig(({mode}) => {
     },
     // base: mode === 'production' ? `/${env.BASE_URL}/` : './',
     base: mode === 'production' ? './' : './',
-    root: path.join(__dirname, 'src'),
     build: {
       outDir: './dist',
     },
