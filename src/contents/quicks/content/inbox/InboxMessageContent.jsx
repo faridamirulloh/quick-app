@@ -7,8 +7,10 @@ import ChatCard from './ChatCard';
 import ChatSeparator from './ChatSeparator';
 import style from './InboxMessageContent.module.scss';
 import {IconArrowDown, IconArrowLeft, IconClose} from '../../../../components/icons';
+import LoadingContent from '../../../../components/loading/LoadingContent';
 import {MessageType} from '../../../../constants/dataEnum';
-import {messageContent} from '../../../../constants/dummyData';
+import {MyID} from '../../../../constants/dummyData';
+import {getMessageContent, sendChat} from '../../../../stores/businesses/messagesBusiness';
 import {onClickQuickButton} from '../../../../stores/businesses/quicksBusiness';
 
 const bannerSupportWaitToConnect = (
@@ -23,13 +25,30 @@ const scrollStep = 22;
 
 function InboxMessageContent({messageId, onClickBack}) {
   const dispatch = useDispatch();
+  const [isLoading, setLoading] = useState(true);
+  const [chatsState, setChats] = useState([]);
   const [showNewMessageButton, setShowNewMessageButton] = useState(false);
   const contentRef = useRef();
+  const newMessageRef = useRef();
 
-  const message = messageContent.find(({messageId: id}) => id === messageId);
+  useEffect(() => {
+    const loadMessages = async () => {
+      const chats = await getMessageContent(messageId);
+      setChats(chats);
+      setLoading(false);
+    };
+
+    loadMessages();
+
+    return () => clearInterval(scrollAnimation);
+  }, [messageId]);
+
+  useEffect(() => {
+    if (!isLoading) scrollToBottom();
+  }, [isLoading]);
 
   let banner;
-  if (message.type === MessageType.SUPPORT && message.waitingToConnect) {
+  if (chatsState.type === MessageType.SUPPORT && chatsState.waitingToConnect) {
     banner = bannerSupportWaitToConnect;
   }
 
@@ -52,11 +71,6 @@ function InboxMessageContent({messageId, onClickBack}) {
     }, 2);
   };
 
-  useEffect(() => {
-    scrollToBottom();
-    return () => clearInterval(scrollAnimation);
-  }, []);
-
   const handleClickBack = () => {
     onClickBack();
   };
@@ -68,9 +82,13 @@ function InboxMessageContent({messageId, onClickBack}) {
   const handleScroll = () => {
     const {offsetHeight, scrollTop, scrollHeight} = contentRef.current;
     const isScrolledBottom = scrollHeight <= Math.ceil(offsetHeight + scrollTop) + scrollStep;
-    const isNemMessageExist = message.unread;
+    const isNemMessageExist = chatsState.unread;
 
     setShowNewMessageButton(!isScrolledBottom && isNemMessageExist);
+  };
+
+  const handleClickSend = async () => {
+    sendChat({messageId, id: MyID, message: newMessageRef.current});
   };
 
   return (
@@ -81,11 +99,11 @@ function InboxMessageContent({messageId, onClickBack}) {
             <IconArrowLeft />
           </IconButton>
           <div className={style.headerTitle}>
-            <span className={style.title} title={message.title}>
-              {message.title}
+            <span className={style.title} title={chatsState.title}>
+              {chatsState.title}
             </span>
-            {message.type === MessageType.GROUP ? (
-              <span className={style.subTitle}>{message.participants} participants</span>
+            {chatsState.type === MessageType.GROUP ? (
+              <span className={style.subTitle}>{chatsState.participants} participants</span>
             ) : null}
           </div>
         </div>
@@ -94,31 +112,44 @@ function InboxMessageContent({messageId, onClickBack}) {
         </IconButton>
       </div>
       <div ref={contentRef} onScroll={handleScroll} className={style.content}>
-        {message.chatsGroupByRead.map((readGroup) => (
+        {isLoading ? (
+          <LoadingContent text="Loading Chats ..." />
+        ) : (
           <>
-            {!readGroup.read ? <ChatSeparator unread /> : null}
-            {readGroup.chatsGroupByDate.map((dateGroup) => (
+            {chatsState.chatsGroupByRead.map((readGroup) => (
               <>
-                {dateGroup.date ? <ChatSeparator title={dateGroup.date} /> : null}
-                {dateGroup.chats.map((chat, idx) => (
-                  <ChatCard key={idx} name={chat.id} type={chat.chatType} {...chat} />
+                {!readGroup.read ? <ChatSeparator unread /> : null}
+                {readGroup.chatsGroupByDate.map((dateGroup) => (
+                  <>
+                    {dateGroup.date ? <ChatSeparator title={dateGroup.date} /> : null}
+                    {dateGroup.chats.map((chat, idx) => (
+                      <ChatCard key={idx} name={chat.id} type={chat.chatType} {...chat} />
+                    ))}
+                  </>
                 ))}
               </>
             ))}
+            {showNewMessageButton ? (
+              <Button className={style.newMessageButton} variant="contained" onClick={scrollToBottom}>
+                New Message
+                <IconArrowDown />
+              </Button>
+            ) : null}
           </>
-        ))}
-        {showNewMessageButton ? (
-          <Button className={style.newMessageButton} variant="contained" onClick={scrollToBottom}>
-            New Message
-            <IconArrowDown />
-          </Button>
-        ) : null}
+        )}
       </div>
 
       {banner}
       <div className={style.inputChat}>
-        <TextField placeholder="Type a new message" size="small" fullWidth />
-        <Button variant="contained" size="large">
+        <TextField
+          placeholder="Type a new message"
+          size="small"
+          fullWidth
+          onBlur={(e) => {
+            newMessageRef.current = e.target.value;
+          }}
+        />
+        <Button variant="contained" size="large" onClick={handleClickSend}>
           Send
         </Button>
       </div>

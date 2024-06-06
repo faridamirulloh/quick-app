@@ -6,6 +6,8 @@ export const getDate = (date) => dayjs(date).format('DD/MM/YYYY');
 
 export const getDateHour = (date) => dayjs(date).format('DD/MM/YYYY HH:mm');
 
+export const getHour = (date) => dayjs(date).format('HH:mm');
+
 export const dateFromNow = (date) =>
   dayjs(date)
     .fromNow()

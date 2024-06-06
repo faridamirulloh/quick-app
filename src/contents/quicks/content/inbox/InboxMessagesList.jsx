@@ -6,19 +6,26 @@ import InboxMessageCard from './InboxMessageCard';
 import style from './InboxMessagesList.module.scss';
 import {IconSearchBlack} from '../../../../components/icons';
 import LoadingContent from '../../../../components/loading/LoadingContent';
-import {messagesList} from '../../../../constants/dummyData';
+import {getMessagesList} from '../../../../stores/businesses/messagesBusiness';
 
 function InboxMessagesList({openMessage}) {
   const [searchByName, setSearchByName] = useState('');
   const [isLoading, setLoading] = useState(true);
+  const [messageListState, setMessageList] = useState([]);
 
   useEffect(() => {
-    setTimeout(() => {
+    const loadMessages = async () => {
+      const messageList = await getMessagesList();
+      setMessageList(messageList);
       setLoading(false);
-    }, 700);
+    };
+
+    loadMessages();
   }, []);
 
-  const messagesFiltered = messagesList.filter(({title}) => title?.toLowerCase().includes(searchByName.toLowerCase()));
+  const messagesFiltered = messageListState.filter(({title}) =>
+    title?.toLowerCase().includes(searchByName.toLowerCase()),
+  );
 
   return (
     <div id="inbox-messages-list" className={style.container}>

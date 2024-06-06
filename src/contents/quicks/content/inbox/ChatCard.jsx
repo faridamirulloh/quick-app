@@ -5,8 +5,9 @@ import React, {useState} from 'react';
 import style from './InboxMessageContent.module.scss';
 import {IconOption} from '../../../../components/icons';
 import {ChatSenderType} from '../../../../constants/dataEnum';
+import {deleteChat} from '../../../../stores/businesses/messagesBusiness';
 
-function ChatCard({name, message, time, color, backgroundColor, type}) {
+function ChatCard({chatId, name, message, time, color, backgroundColor, type}) {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const alignRight = type === ChatSenderType.SELF;
@@ -17,6 +18,11 @@ function ChatCard({name, message, time, color, backgroundColor, type}) {
 
   const handleClose = () => {
     setAnchorEl();
+  };
+
+  const handleDelete = () => {
+    handleClose();
+    deleteChat(chatId);
   };
 
   const option = (
@@ -39,7 +45,7 @@ function ChatCard({name, message, time, color, backgroundColor, type}) {
             Edit
           </MenuItem>
         ) : null}
-        <MenuItem onClick={handleClose} sx={{color: '#EB5757', width: 126}}>
+        <MenuItem onClick={handleDelete} sx={{color: '#EB5757', width: 126}}>
           Delete
         </MenuItem>
       </Menu>
@@ -76,6 +82,7 @@ function ChatCard({name, message, time, color, backgroundColor, type}) {
 }
 
 ChatCard.propTypes = {
+  chatId: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   message: PropTypes.string.isRequired,
   time: PropTypes.string.isRequired,

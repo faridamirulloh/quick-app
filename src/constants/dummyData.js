@@ -1,5 +1,7 @@
 import {ChatSenderType, MessageType} from './dataEnum';
 
+export const MyID = 'You';
+
 export const messagesList = [
   {
     id: 1,
@@ -67,14 +69,16 @@ const getGroupMessageContentUnread = (message) => ({
             {
               id: 'Mary Hilda',
               color: '#E5A443',
+              chatId: 1,
               backgroundColor: '#FCEED3',
               chatType: ChatSenderType.ELSE,
               message: 'Just Fill me in for his updates yea?',
               time: '19:32',
             },
             {
-              id: 'You',
+              id: MyID,
               color: '#9B51E0',
+              chatId: 2,
               backgroundColor: '#EEDCFF',
               chatType: ChatSenderType.SELF,
               message: 'No worries. It will be completed ASAP. I’ve asked him yesterday.',
@@ -88,6 +92,7 @@ const getGroupMessageContentUnread = (message) => ({
             {
               id: 'Mary Hilda',
               color: '#E5A443',
+              chatId: 3,
               backgroundColor: '#FCEED3',
               chatType: ChatSenderType.ELSE,
               message:
@@ -95,8 +100,9 @@ const getGroupMessageContentUnread = (message) => ({
               time: '07:32',
             },
             {
-              id: 'You',
+              id: MyID,
               color: '#9B51E0',
+              chatId: 4,
               backgroundColor: '#EEDCFF',
               chatType: ChatSenderType.SELF,
               message:
@@ -106,6 +112,7 @@ const getGroupMessageContentUnread = (message) => ({
             {
               id: 'Mary Hilda',
               color: '#E5A443',
+              chatId: 5,
               backgroundColor: '#FCEED3',
               chatType: ChatSenderType.ELSE,
               message: 'Sure thing, Claren',
@@ -124,6 +131,7 @@ const getGroupMessageContentUnread = (message) => ({
             {
               id: 'Obaidullah Amarkhil',
               color: '#43B78D',
+              chatId: 6,
               backgroundColor: '#D2F2EA',
               chatType: ChatSenderType.ELSE,
               message: 'Morning. I’ll try to do them. Thanks',
@@ -152,14 +160,16 @@ const getGroupMessageContent = (message) => ({
             {
               id: 'Mary Hilda',
               color: '#E5A443',
+              chatId: 7,
               backgroundColor: '#FCEED3',
               chatType: ChatSenderType.ELSE,
               message: 'Just Fill me in for his updates yea?',
               time: '19:32',
             },
             {
-              id: 'You',
+              id: MyID,
               color: '#9B51E0',
+              chatId: 8,
               backgroundColor: '#EEDCFF',
               chatType: ChatSenderType.SELF,
               message: 'No worries. It will be completed ASAP. I’ve asked him yesterday.',
@@ -173,6 +183,7 @@ const getGroupMessageContent = (message) => ({
             {
               id: 'Mary Hilda',
               color: '#E5A443',
+              chatId: 9,
               backgroundColor: '#FCEED3',
               chatType: ChatSenderType.ELSE,
               message:
@@ -180,8 +191,9 @@ const getGroupMessageContent = (message) => ({
               time: '07:32',
             },
             {
-              id: 'You',
+              id: MyID,
               color: '#9B51E0',
+              chatId: 10,
               backgroundColor: '#EEDCFF',
               chatType: ChatSenderType.SELF,
               message:
@@ -191,6 +203,7 @@ const getGroupMessageContent = (message) => ({
             {
               id: 'Mary Hilda',
               color: '#E5A443',
+              chatId: 11,
               backgroundColor: '#FCEED3',
               chatType: ChatSenderType.ELSE,
               message: 'Sure thing, Claren',
@@ -199,6 +212,7 @@ const getGroupMessageContent = (message) => ({
             {
               id: 'Obaidullah Amarkhil',
               color: '#43B78D',
+              chatId: 12,
               backgroundColor: '#D2F2EA',
               chatType: ChatSenderType.ELSE,
               message: 'Morning. I’ll try to do them. Thanks',
@@ -228,6 +242,7 @@ const getSupportMessageContent = (message) => ({
             {
               id: 'FastVisa Support',
               color: '#2F80ED',
+              chatId: 13,
               backgroundColor: '#F8F8F8',
               chatType: ChatSenderType.ELSE,
               message:
@@ -235,8 +250,9 @@ const getSupportMessageContent = (message) => ({
               time: '19:32',
             },
             {
-              id: 'You',
+              id: MyID,
               color: '#9B51E0',
+              chatId: 14,
               backgroundColor: '#EEDCFF',
               chatType: ChatSenderType.SELF,
               message: 'Hi, I need help with something can you help me ?',

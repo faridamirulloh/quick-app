@@ -9,18 +9,23 @@ const version = {
 };
 
 const services = {
-  USERS: 'users',
+  MESSAGES: 'users',
+  TASKS: 'users',
 };
 
 export const RestAPI = {
-  users: {
-    getData: [version.api, services.USERS].join('/'),
+  messages: {
+    getMessages: [version.api, services.MESSAGES].join('/'),
+    getChats: [version.api, services.MESSAGES].join('/'),
+    sendChat: [version.api, services.MESSAGES].join('/'),
+    update: [version.api, services.MESSAGES].join('/'),
+    delete: [version.api, services.MESSAGES].join('/'),
   },
 
   tasks: {
-    getList: [version.api, services.USERS].join('/'),
-    create: [version.api, services.USERS].join('/'),
-    update: [version.api, services.USERS].join('/'),
-    delete: [version.api, services.USERS].join('/'),
+    getList: [version.api, services.TASKS].join('/'),
+    create: [version.api, services.TASKS].join('/'),
+    update: [version.api, services.TASKS].join('/'),
+    delete: [version.api, services.TASKS].join('/'),
   },
 };
