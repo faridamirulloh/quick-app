@@ -10,7 +10,7 @@ import {IconArrowDown, IconArrowLeft, IconClose} from '../../../../components/ic
 import LoadingContent from '../../../../components/loading/LoadingContent';
 import {MessageType} from '../../../../constants/dataEnum';
 import {MyID} from '../../../../constants/dummyData';
-import {getMessageContent, sendChat} from '../../../../stores/businesses/messagesBusiness';
+import {deleteChat, getMessageContent, sendChat} from '../../../../stores/businesses/messagesBusiness';
 import {onClickQuickButton} from '../../../../stores/businesses/quicksBusiness';
 
 const bannerSupportWaitToConnect = (
@@ -91,6 +91,29 @@ function InboxMessageContent({messageId, onClickBack}) {
     sendChat({messageId, id: MyID, message: newMessageRef.current});
   };
 
+  const handleDeleteChat = (_chatId) => {
+    deleteChat(_chatId);
+    const newChats = {...chatsState};
+    newChats.chatsGroupByRead = newChats.chatsGroupByRead.map((readGroup) => {
+      const newReadGroup = {...readGroup};
+      newReadGroup.chatsGroupByDate = newReadGroup.chatsGroupByDate.map((dateGroup) => {
+        const newDateGroup = {...dateGroup};
+
+        newDateGroup.chats = newDateGroup.chats.filter(({chatId}) => chatId !== _chatId);
+
+        return newDateGroup.chats.length > 0 ? newDateGroup : null;
+      });
+
+      newReadGroup.chatsGroupByDate = newReadGroup.chatsGroupByDate.filter((group) => Boolean(group));
+
+      return newReadGroup.chatsGroupByDate.length > 0 ? newReadGroup : null;
+    });
+
+    newChats.chatsGroupByRead = newChats.chatsGroupByRead.filter((group) => Boolean(group));
+
+    setChats(newChats);
+  };
+
   return (
     <div className={style.container}>
       <div className={style.header}>
@@ -118,12 +141,18 @@ function InboxMessageContent({messageId, onClickBack}) {
           <>
             {chatsState.chatsGroupByRead.map((readGroup) => (
               <>
-                {!readGroup.read ? <ChatSeparator unread /> : null}
+                {!readGroup.read ? <ChatSeparator key={'unread'} unread /> : null}
                 {readGroup.chatsGroupByDate.map((dateGroup) => (
                   <>
-                    {dateGroup.date ? <ChatSeparator title={dateGroup.date} /> : null}
-                    {dateGroup.chats.map((chat, idx) => (
-                      <ChatCard key={idx} name={chat.id} type={chat.chatType} {...chat} />
+                    {dateGroup.date ? <ChatSeparator key={dateGroup.date} title={dateGroup.date} /> : null}
+                    {dateGroup.chats.map((chat) => (
+                      <ChatCard
+                        key={chat.chatId}
+                        name={chat.id}
+                        type={chat.chatType}
+                        {...chat}
+                        onDelete={handleDeleteChat}
+                      />
                     ))}
                   </>
                 ))}

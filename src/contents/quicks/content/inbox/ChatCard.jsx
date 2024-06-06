@@ -5,9 +5,8 @@ import React, {useState} from 'react';
 import style from './InboxMessageContent.module.scss';
 import {IconOption} from '../../../../components/icons';
 import {ChatSenderType} from '../../../../constants/dataEnum';
-import {deleteChat} from '../../../../stores/businesses/messagesBusiness';
 
-function ChatCard({chatId, name, message, time, color, backgroundColor, type}) {
+function ChatCard({chatId, name, message, time, color, backgroundColor, type, onDelete}) {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const alignRight = type === ChatSenderType.SELF;
@@ -22,7 +21,7 @@ function ChatCard({chatId, name, message, time, color, backgroundColor, type}) {
 
   const handleDelete = () => {
     handleClose();
-    deleteChat(chatId);
+    onDelete(chatId);
   };
 
   const option = (
@@ -89,6 +88,7 @@ ChatCard.propTypes = {
   color: PropTypes.string.isRequired,
   backgroundColor: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
+  onDelete: PropTypes.func.isRequired,
 };
 
 export default ChatCard;
