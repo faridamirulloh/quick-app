@@ -12,6 +12,7 @@ export const dateFromNow = (date) =>
   dayjs(date)
     .fromNow()
     .replace('in ', '')
+    .replace('a day', 'a Day left')
     .replace('days', 'Days left')
     .replace('hours', 'Hours left')
     .replace('left ago', 'ago');
